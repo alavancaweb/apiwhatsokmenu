@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bot delivery</title>
+</head>
+<body>
+
+	<div id="app">
+		<img src="" alt="QR Code" id="qrcode">
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			var socket = io('https://apiokmenuwhats.alavancaweb.com.br');
+
+			socket.on('init', function(data) {
+				$('#qrcode').attr('src', data);
+				$('#qrcode').show();
+			});
+
+			socket.on('qr', function(src) {
+				$('#qrcode').attr('src', src);
+				$('#qrcode').show();
+
+			});
+
+			socket.on('ready', function(data) {
+				$('#qrcode').hide();
+			});
+
+			socket.on('authenticated', function(data) {
+				$('#qrcode').hide();
+			});
+
+			socket.on('change_state', function(data) {
+			});
+
+			socket.on('disconnected', function(data) {
+			});			
+		});
+	</script>
+</body>
+</html>
